@@ -23,12 +23,12 @@ class EnvironmentModel(metaclass=ABCMeta):
 
     def action(self, action) -> (np.ndarray, float, bool):
         self.tetris_model.next_state(action)
-        self.do_action()
-        return self.get_current_state(), self.reward_module.get_reward(self.tetris_model), self.tetris_model.is_end
+        chosen = self.do_action()
+        return self.get_current_state(), self.reward_module.get_reward(self.tetris_model), self.tetris_model.is_end, chosen
 
     @abstractmethod
     def do_action(self):
         pass
 
     def get_current_state(self):
-        return np.reshape(self.tetris_model.get_board_data(), (1, self._states))
+        return np.reshape(self.tetris_model.get_board_data(), (self.board_height,self.board_width))

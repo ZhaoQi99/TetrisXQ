@@ -36,6 +36,7 @@ class AutoPlayEnvironment(EnvironmentModel, TetrisAI):
             self.tetris_model.sum_tetromino(y, x)
 
         self.graphic_module.pump_event()
+        return chosen_state
 
     def _update_policy(self, block):
         if block == self._prv_block:
