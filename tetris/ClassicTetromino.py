@@ -12,4 +12,4 @@ class ClassicTetromino(TetrominoInterface):
             [[1, 1, 1], [1, 0, 0]],  # L, 4
             [[0, 1, 1], [1, 1, 0]],  # S, 5
             [[1, 1, 0], [0, 1, 1]]  # Z, 6
-        ]
+        ] 
