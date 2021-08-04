@@ -4,12 +4,12 @@ from graphics.GraphicModule import GraphicModule
 import json
 from convert import convert, convert_to_answer
 
-settings = Settings(20, 20)
+settings = Settings(20, 10)
 
 
 def generate_tetromino(pos):
-    shape, state = convert(pos)
-    return settings.TETROMINO.build_tetromino().index(shape), state
+    t, shape,state = convert(pos)
+    return settings.TETROMINO.build_tetromino().index(t), shape, state
 
 
 TETROMINO_AGENT = generate_tetromino
@@ -25,15 +25,20 @@ if __name__ == '__main__':
     with open("data.json", "r") as f:
         data = json.load(f)
     while turns < len(data):
-        action, origin_rotate = TETROMINO_AGENT(data[turns])
+        action, shape, origin_rotate = TETROMINO_AGENT(data[turns])
         state, _, end, chosen = env_model.action(action)
         turns += 1
         # print(turns)
         # print(state)
+        print(chosen)
+        if not chosen:
+            with open("ac1.txt", 'w') as f:
+                f.write(','.join(ans))
+
         _, y, x, rotate, _, _ = chosen
-        # print(y, x, rotate)
+        print(shape, y, x, rotate)
         # input('aa')
-        ans += convert_to_answer(y, x, rotate + origin_rotate)
+        ans += convert_to_answer(y, x, rotate + origin_rotate, shape)
         if end:
             print("Turns: " + str(turns))
             # turns = 0
