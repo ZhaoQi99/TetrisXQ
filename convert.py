@@ -30,12 +30,15 @@ def convert(pos):
 def convert_to_answer(y, x, rotate):
     rotate = rotate % 4
     res = ['N']
-    res += ['C' for i in range(rotate)]
-    res.append(f'D{y-1}')
+    if rotate > 0:
+        res.append(f'C{rotate}')
+    res.append(f'D{y+1}')
     if x < 4 - 1:
-        res.append(f'L{3-x}')
+        if 3 - x > 0:
+            res.append(f'L{3-x}')
     if x > 4 - 1:
-        res.append(f'R{x-3}')
+        if x - 3 > 0:
+            res.append(f'R{x-3}')
     return res
 
 
